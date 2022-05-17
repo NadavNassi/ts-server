@@ -8,7 +8,8 @@ exports.movieRoutes = void 0;
 // const movieController = require('./movie.controller')
 const express_1 = __importDefault(require("express"));
 const movie_controller_1 = require("./movie.controller");
+const logger_middleware_1 = require("../../middleware/logger.middleware");
 const router = express_1.default.Router();
-router.get('/', movie_controller_1.getMovies);
-router.get('/:omdbID', movie_controller_1.getById);
+router.get('/', logger_middleware_1.logInfo, movie_controller_1.getMovies);
+router.get('/:omdbID', logger_middleware_1.logInfo, movie_controller_1.getById);
 exports.movieRoutes = router;

@@ -2,12 +2,16 @@ import 'dotenv/config'
 import express, { Express, Request, Response } from 'express'
 import cors, { CorsOptions } from 'cors'
 import path from 'path'
+import cluster from 'cluster'
+import os from 'os'
 
 import { movieRoutes } from './api/movie/movie.routes'
 import { logger } from './logger'
 import { errorHandler } from './middleware/error-handler.middleware'
 
 const app: Express = express()
+
+const cpuNum = os.cpus().length
 
 app.use(express.json())
 
@@ -29,6 +33,18 @@ app.get('/**', (req: Request, res: Response) => {
 
 app.use(errorHandler)
 const port: number | string = process.env.PORT || 3030
-app.listen(port,
-    () => logger.info('Server is running on port: ' + port)
-)
+
+if (cluster.isPrimary) {
+    for (let i = 0; i < cpuNum; i++) {
+        cluster.fork()
+    }
+} else {
+    app.listen(port,
+        () => logger.info(`pid: [${process.pid}] Server is running on port:  ${port}`)
+    )
+
+}
+
+// app.listen(port,
+//     () => logger.info('Server is running on port: ' + port)
+// )

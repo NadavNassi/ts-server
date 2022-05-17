@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start": "node ./ts-built/server.js",
-    "dev": "nodemon ./ts-built/server.js",
+    "dev:js": "nodemon ./ts-built/server.js",
+    "dev:ts": "nodemon ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
