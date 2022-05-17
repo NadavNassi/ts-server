@@ -38,6 +38,10 @@ if (cluster.isPrimary) {
     for (let i = 0; i < cpuNum; i++) {
         cluster.fork()
     }
+    cluster.on('exit', (worker, code, signal) => {
+        logger.error(`worker ${worker.process.pid} died`);
+        cluster.fork()
+    })
 } else {
     app.listen(port,
         () => logger.info(`pid: [${process.pid}] Server is running on port:  ${port}`)
