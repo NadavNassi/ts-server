@@ -42,7 +42,6 @@ if (cluster.isPrimary) {
     app.listen(port,
         () => logger.info(`pid: [${process.pid}] Server is running on port:  ${port}`)
     )
-
 }
 
 // app.listen(port,
