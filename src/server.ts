@@ -25,6 +25,10 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions))
 }
 
+app.get('/', (req, res) => {
+    res.send('Hello world')
+})
+
 app.use('/api/movie', movieRoutes)
 
 app.get('/**', (req: Request, res: Response) => {
