@@ -11,8 +11,7 @@ import { errorHandler } from './middleware/error-handler.middleware'
 
 const app: Express = express()
 
-// const cpuNum = os.cpus().length
-const cpuNum = 2
+const cpuNum = os.cpus().length
 
 app.use(express.json())
 
