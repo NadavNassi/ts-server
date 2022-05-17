@@ -1,6 +1,6 @@
 
 import { format, createLogger, transports } from "winston";
-const { timestamp, combine, printf, errors } = format
+const { timestamp, combine, printf, errors, colorize } = format
 
 
 export function buildDevLogger() {
@@ -9,7 +9,7 @@ export function buildDevLogger() {
     });
 
     const logger = createLogger({
-        format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), errors({ stack: true }), myFormat),
+        format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), colorize(), errors({ stack: true }), myFormat),
         transports: [
             new transports.Console(),
             new transports.File({
