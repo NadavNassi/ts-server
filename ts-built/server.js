@@ -25,9 +25,6 @@ else {
     };
     app.use(cors_1.default(corsOptions));
 }
-app.get('/', (req, res) => {
-    res.send('Hello world');
-});
 app.use('/api/movie', movie_routes_1.movieRoutes);
 app.get('/**', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, 'public', 'index.html'));
