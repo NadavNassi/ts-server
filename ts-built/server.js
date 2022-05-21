@@ -8,12 +8,14 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const cluster_1 = __importDefault(require("cluster"));
-const os_1 = __importDefault(require("os"));
 const movie_routes_1 = require("./api/movie/movie.routes");
+const auth_routes_1 = require("./api/auth/auth.routes");
 const logger_1 = require("./logger");
 const error_handler_middleware_1 = require("./middleware/error-handler.middleware");
+require("./config/database").connect();
 const app = express_1.default();
-const cpuNum = os_1.default.cpus().length;
+// const cpuNum = os.cpus().length
+const cpuNum = 1;
 app.use(express_1.default.json());
 if (process.env.NODE_ENV === 'production') {
     app.use(express_1.default.static(path_1.default.resolve(__dirname, 'public')));
@@ -26,6 +28,7 @@ else {
     app.use(cors_1.default(corsOptions));
 }
 app.use('/api/movie', movie_routes_1.movieRoutes);
+app.use('/api/auth', auth_routes_1.authRoutes);
 app.get('/**', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, 'public', 'index.html'));
 });

@@ -13,4 +13,20 @@ export class ApiError {
     static internalError(msg: string): ApiError {
         return new ApiError(500, msg)
     }
+
+    static signupError(msg: string): ApiError {
+        return new ApiError(422, msg)
+    }
+
+    static alredyExist(msg: string): ApiError {
+        return new ApiError(409, msg)
+    }
+
+    static wrongCredentials(msg: string): ApiError {
+        return new ApiError(401, msg)
+    }
+
+    static noToken(msg: string): ApiError {
+        return new ApiError(403, msg)
+    }
 }

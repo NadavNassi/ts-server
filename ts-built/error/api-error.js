@@ -12,5 +12,17 @@ class ApiError {
     static internalError(msg) {
         return new ApiError(500, msg);
     }
+    static signupError(msg) {
+        return new ApiError(422, msg);
+    }
+    static alredyExist(msg) {
+        return new ApiError(409, msg);
+    }
+    static wrongCredentials(msg) {
+        return new ApiError(401, msg);
+    }
+    static noToken(msg) {
+        return new ApiError(403, msg);
+    }
 }
 exports.ApiError = ApiError;

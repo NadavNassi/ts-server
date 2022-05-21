@@ -6,12 +6,14 @@ import cluster from 'cluster'
 import os from 'os'
 
 import { movieRoutes } from './api/movie/movie.routes'
+import { authRoutes } from './api/auth/auth.routes'
 import { logger } from './logger'
 import { errorHandler } from './middleware/error-handler.middleware'
-
+require("./config/database").connect();
 const app: Express = express()
 
-const cpuNum = os.cpus().length
+// const cpuNum = os.cpus().length
+const cpuNum = 1
 
 app.use(express.json())
 
@@ -26,6 +28,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use('/api/movie', movieRoutes)
+app.use('/api/auth', authRoutes)
 
 app.get('/**', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
