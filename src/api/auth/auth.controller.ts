@@ -37,11 +37,3 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         next(error)
     }
 }
-
-
-
-
-export function logout(req: Request, res: Response): void { }
-
-export class AuthApi {
-}

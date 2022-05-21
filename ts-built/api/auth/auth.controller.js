@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthApi = exports.logout = exports.login = exports.signup = void 0;
+exports.login = exports.signup = void 0;
 const api_error_1 = require("../../error/api-error");
 const logger_1 = require("../../logger");
 const auth_service_1 = require("./auth.service");
@@ -50,8 +50,3 @@ function login(req, res, next) {
     });
 }
 exports.login = login;
-function logout(req, res) { }
-exports.logout = logout;
-class AuthApi {
-}
-exports.AuthApi = AuthApi;
