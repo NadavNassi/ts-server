@@ -41,8 +41,11 @@ function signup(credentials) {
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.default.findOne({ email });
+        if (!user) {
+            throw api_error_1.ApiError.wrongCredentials('Wrong email or password');
+        }
         const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
-        if (user && isPasswordValid) {
+        if (isPasswordValid) {
             const token = jsonwebtoken_1.default.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, {
                 expiresIn: '2h'
             });

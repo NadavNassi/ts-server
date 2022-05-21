@@ -33,8 +33,11 @@ async function signup(credentials: UserSignup): Promise<UserSignup> {
 
 async function login(email: string, password: string): Promise<UserSignup> {
     const user = await User.findOne({ email })
+    if (!user) {
+        throw ApiError.wrongCredentials('Wrong email or password')
+    }
     const isPasswordValid = await bcrypt.compare(password, user.password)
-    if (user && isPasswordValid) {
+    if (isPasswordValid) {
         const token = jwt.sign(
             { user_id: user._id, email },
             process.env.TOKEN_KEY,

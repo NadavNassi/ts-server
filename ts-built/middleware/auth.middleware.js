@@ -19,13 +19,13 @@ const config = process.env;
 function verifyToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const token = req.body.token || req.query.token || req.headers["x-access-token"];
+        console.log("🚀 ~ file: auth.middleware.ts ~ line 9 ~ verifyToken ~ token", token);
         if (!token) {
             next(api_error_1.ApiError.noToken('No token in request'));
             return;
         }
         try {
             const decoded = yield jsonwebtoken_1.default.verify(token, config.TOKEN_KEY);
-            console.log("🚀 ~ file: auth.middleware.ts ~ line 17 ~ verifyToken ~ decoded", decoded);
             //@ts-ignore
             req.user = decoded;
         }
